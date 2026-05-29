@@ -1488,7 +1488,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
         {/* CTA after plan */}
         <div className="mt-6">
           <motion.a
-            href="#checkout"
+            href="https://pay.cakto.com.br/32biw7j_904629"
+            target="_blank"
+            rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
             className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
             style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
@@ -1517,7 +1519,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
         {/* CTA after offer */}
         <div className="mt-6">
           <motion.a
-            href="#checkout"
+            href="https://pay.cakto.com.br/32biw7j_904629"
+            target="_blank"
+            rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
             className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
             style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
@@ -1559,7 +1563,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
         {/* CTA after goals */}
         <div className="mt-6">
           <motion.a
-            href="#checkout"
+            href="https://pay.cakto.com.br/32biw7j_904629"
+            target="_blank"
+            rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
             className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
             style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
@@ -1606,7 +1612,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
             <div className="text-xs text-muted-foreground mb-5">ou 6x de R$ 5,32 sem juros</div>
 
             <motion.a
-              href="#checkout"
+              href="https://pay.cakto.com.br/32biw7j_904629"
+              target="_blank"
+              rel="noopener noreferrer"
               whileTap={{ scale: 0.97 }}
               className="block w-full py-5 rounded-2xl bg-gradient-cta text-white font-black text-base relative overflow-hidden animate-pulse-glow"
               style={{ boxShadow: "0 10px 40px -10px rgba(34, 197, 94, 0.55)" }}
@@ -1661,7 +1669,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
 
         {/* Footer CTA */}
         <div className="mt-10">
-          <PrimaryButton variant="green">QUERO MINHA GELATINA AGORA!</PrimaryButton>
+          <a href="https://pay.cakto.com.br/32biw7j_904629" target="_blank" rel="noopener noreferrer">
+            <PrimaryButton variant="green">QUERO MINHA GELATINA AGORA!</PrimaryButton>
+          </a>
           <p className="text-center text-xs text-muted-foreground mt-3">
             Compra 100% segura · Garantia de 7 dias
           </p>
@@ -1676,7 +1686,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
             <div className="text-lg font-black text-gradient-primary leading-none">R$ 25,90</div>
           </div>
           <motion.a
-            href="#checkout"
+            href="https://pay.cakto.com.br/32biw7j_904629"
+            target="_blank"
+            rel="noopener noreferrer"
             whileTap={{ scale: 0.96 }}
             className="flex-1 py-3.5 rounded-2xl bg-gradient-cta text-white font-black text-sm text-center relative overflow-hidden animate-pulse-glow"
             style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
