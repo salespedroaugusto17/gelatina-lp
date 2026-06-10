@@ -293,43 +293,135 @@ function Screen({ step, title, subtitle, children, footer }: { step: number; tit
 function WheelPicker({ min, max, value, onChange, unit }: { min: number; max: number; value: number; onChange: (v: number) => void; unit: string }) {
   const dec = () => onChange(Math.max(min, value - 1));
   const inc = () => onChange(Math.min(max, value + 1));
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const percentage = ((value - min) / (max - min)) * 100;
+
+  // Calculate value from pointer position on track
+  const getValueFromPointer = (clientX: number) => {
+    const track = trackRef.current;
+    if (!track) return value;
+    const rect = track.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, x / rect.width));
+    return Math.round(min + ratio * (max - min));
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    e.preventDefault();
+    setDragging(true);
+    setHasInteracted(true);
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    const newVal = getValueFromPointer(e.clientX);
+    onChange(newVal);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!dragging) return;
+    e.preventDefault();
+    const newVal = getValueFromPointer(e.clientX);
+    onChange(newVal);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    setDragging(false);
+    (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+  };
+
   return (
     <div className="relative my-8">
       <div className="absolute inset-0 bg-gradient-glow blur-2xl opacity-60" />
       <div className="relative glass-pink rounded-3xl p-8 flex items-center justify-center gap-6">
-        <motion.button whileTap={{ scale: 0.9 }} onClick={dec} className="size-12 rounded-full bg-white shadow-soft flex items-center justify-center">
+        <motion.button whileTap={{ scale: 0.9 }} onClick={dec} className="size-12 rounded-full bg-white shadow-soft flex items-center justify-center active:bg-pink-50 transition-colors">
           <Minus className="size-5 text-primary" />
         </motion.button>
-        <div className="text-center">
+        <div className="text-center min-w-[100px]">
           <motion.div
             key={value}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="text-6xl font-black text-gradient-primary tabular-nums leading-none"
           >
             {value}
           </motion.div>
           <div className="text-xs font-bold text-muted-foreground mt-1">{unit}</div>
         </div>
-        <motion.button whileTap={{ scale: 0.9 }} onClick={inc} className="size-12 rounded-full bg-gradient-primary shadow-glow-pink flex items-center justify-center">
+        <motion.button whileTap={{ scale: 0.9 }} onClick={inc} className="size-12 rounded-full bg-gradient-primary shadow-glow-pink flex items-center justify-center active:brightness-110 transition-all">
           <Plus className="size-5 text-white" />
         </motion.button>
       </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full mt-6 accent-primary"
-      />
-      <div className="flex justify-between text-[11px] text-muted-foreground mt-1 px-1">
-        <span>{min}{unit}</span>
-        <span>{max}{unit}</span>
+
+      {/* Custom touch-friendly slider */}
+      <div className="mt-6 px-1">
+        {/* Hint text */}
+        <motion.p
+          initial={{ opacity: 1 }}
+          animate={{ opacity: hasInteracted ? 0 : 1 }}
+          transition={{ duration: 0.4 }}
+          className="text-center text-xs font-bold text-primary/70 mb-3 pointer-events-none"
+        >
+          ⬅️ Arraste a barra ou use os botões + e −
+        </motion.p>
+
+        {/* Track container — large touch area */}
+        <div
+          ref={trackRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          className="relative h-12 flex items-center cursor-pointer select-none"
+          style={{ touchAction: "none" }}
+        >
+          {/* Track background */}
+          <div className="absolute left-0 right-0 h-3 rounded-full bg-pink-100/80 border border-pink-200/40 overflow-hidden">
+            {/* Filled portion */}
+            <motion.div
+              className="h-full rounded-full bg-gradient-primary"
+              animate={{ width: `${percentage}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+          </div>
+
+          {/* Thumb */}
+          <motion.div
+            className="absolute -translate-x-1/2 z-10"
+            animate={{ left: `${percentage}%` }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            {/* Glow ring behind thumb — indicates interactivity */}
+            <div
+              className={`absolute inset-[-6px] rounded-full transition-all duration-300 ${
+                dragging
+                  ? "bg-primary/20 scale-125"
+                  : "bg-primary/10 animate-pulse"
+              }`}
+            />
+            {/* Thumb circle */}
+            <div
+              className={`relative size-7 rounded-full bg-white border-[3px] border-primary shadow-lg transition-all duration-150 ${
+                dragging ? "scale-125 shadow-glow-pink" : ""
+              }`}
+            >
+              {/* Inner dot */}
+              <div className="absolute inset-1.5 rounded-full bg-gradient-primary" />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Min/Max labels */}
+        <div className="flex justify-between text-[11px] text-muted-foreground mt-1 px-1 font-bold">
+          <span>{min}{unit}</span>
+          <span>{max}{unit}</span>
+        </div>
       </div>
     </div>
   );
 }
+
 
 // ============ Loading screen ============
 function LoadingScreen({ onDone }: { onDone: () => void }) {
