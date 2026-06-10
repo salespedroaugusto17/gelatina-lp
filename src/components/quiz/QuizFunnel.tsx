@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
-import { Star, Sparkles, Heart, Check, ChevronRight, Shield, Clock, Zap, TrendingDown, Flame, Award, Lock, Plus, Minus } from "lucide-react";
+import { Star, Sparkles, Heart, Check, ChevronRight, Shield, Clock, Zap, TrendingDown, Flame, Award, Lock, Plus, Minus, ArrowDown } from "lucide-react";
 
 import { ProgressBar } from "./ProgressBar";
 import { PrimaryButton } from "./PrimaryButton";
@@ -171,9 +171,30 @@ function Hero({ onStart }: { onStart: () => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col items-center"
         >
-          <PrimaryButton onClick={onStart}>
-            Quero descobrir meu protocolo <Heart className="size-5 fill-white" />
+          {/* Visual indicator above CTA */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="text-sm font-bold text-primary mb-2 text-center"
+          >
+            👇 Clique no botão abaixo para continuar
+          </motion.p>
+
+          {/* Animated bouncing arrow pointing at CTA */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+            className="mb-3 animate-arrow-bounce-down"
+          >
+            <ArrowDown className="size-6 text-primary" strokeWidth={3} />
+          </motion.div>
+
+          <PrimaryButton onClick={onStart} superCta>
+            👉 QUERO VER O MÉTODO <Heart className="size-5 fill-white" />
           </PrimaryButton>
         </motion.div>
 
@@ -1487,15 +1508,16 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
 
         {/* CTA after plan */}
         <div className="mt-6">
+          <p className="text-center text-sm font-bold text-emerald-600 mb-2 animate-arrow-bounce-down">👇 Clique abaixo para garantir</p>
           <motion.a
             href="https://pay.cakto.com.br/32biw7j_904629"
             target="_blank"
             rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
-            className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
-            style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
+            className="block w-full py-5 rounded-2xl bg-gradient-cta text-white font-black text-lg text-center relative overflow-hidden animate-cta-sales-super-pulse"
+            style={{ boxShadow: "0 10px 35px -6px rgba(34, 197, 94, 0.55)" }}
           >
-            <span className="relative z-10">QUERO MINHA GELATINA AGORA!</span>
+            <span className="relative z-10">👉 CLIQUE AQUI PARA VER A RECEITA</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
           </motion.a>
         </div>
@@ -1518,15 +1540,16 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
 
         {/* CTA after offer */}
         <div className="mt-6">
+          <p className="text-center text-sm font-bold text-emerald-600 mb-2 animate-arrow-bounce-down">👇 Clique abaixo para garantir</p>
           <motion.a
             href="https://pay.cakto.com.br/32biw7j_904629"
             target="_blank"
             rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
-            className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
-            style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
+            className="block w-full py-5 rounded-2xl bg-gradient-cta text-white font-black text-lg text-center relative overflow-hidden animate-cta-sales-super-pulse"
+            style={{ boxShadow: "0 10px 35px -6px rgba(34, 197, 94, 0.55)" }}
           >
-            <span className="relative z-10">QUERO MINHA GELATINA AGORA!</span>
+            <span className="relative z-10">👉 CLIQUE AQUI PARA VER A RECEITA</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
           </motion.a>
         </div>
@@ -1562,15 +1585,16 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
 
         {/* CTA after goals */}
         <div className="mt-6">
+          <p className="text-center text-sm font-bold text-emerald-600 mb-2 animate-arrow-bounce-down">👇 Clique abaixo para garantir</p>
           <motion.a
             href="https://pay.cakto.com.br/32biw7j_904629"
             target="_blank"
             rel="noopener noreferrer"
             whileTap={{ scale: 0.97 }}
-            className="block w-full py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-pulse-glow"
-            style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
+            className="block w-full py-5 rounded-2xl bg-gradient-cta text-white font-black text-lg text-center relative overflow-hidden animate-cta-sales-super-pulse"
+            style={{ boxShadow: "0 10px 35px -6px rgba(34, 197, 94, 0.55)" }}
           >
-            <span className="relative z-10">QUERO MINHA GELATINA AGORA!</span>
+            <span className="relative z-10">👉 CLIQUE AQUI PARA VER A RECEITA</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
           </motion.a>
         </div>
@@ -1616,10 +1640,10 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
               target="_blank"
               rel="noopener noreferrer"
               whileTap={{ scale: 0.97 }}
-              className="block w-full py-5 rounded-2xl bg-gradient-cta text-white font-black text-base relative overflow-hidden animate-pulse-glow"
-              style={{ boxShadow: "0 10px 40px -10px rgba(34, 197, 94, 0.55)" }}
+              className="block w-full py-[1.35rem] rounded-2xl bg-gradient-cta text-white font-black text-lg relative overflow-hidden animate-cta-sales-super-pulse"
+              style={{ boxShadow: "0 10px 40px -10px rgba(34, 197, 94, 0.6)" }}
             >
-              <span className="relative z-10">QUERO MINHA GELATINA AGORA 💖</span>
+              <span className="relative z-10">👉 CLIQUE AQUI PARA VER A RECEITA 💖</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
             </motion.a>
             <div className="flex items-center justify-center gap-3 mt-4 text-[11px] text-muted-foreground">
@@ -1669,8 +1693,9 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
 
         {/* Footer CTA */}
         <div className="mt-10">
+          <p className="text-center text-sm font-bold text-emerald-600 mb-2 animate-arrow-bounce-down">👇 Clique abaixo para garantir</p>
           <a href="https://pay.cakto.com.br/32biw7j_904629" target="_blank" rel="noopener noreferrer">
-            <PrimaryButton variant="green">QUERO MINHA GELATINA AGORA!</PrimaryButton>
+            <PrimaryButton variant="green" superCta>👉 CLIQUE AQUI PARA VER A RECEITA</PrimaryButton>
           </a>
           <p className="text-center text-xs text-muted-foreground mt-3">
             Compra 100% segura · Garantia de 7 dias
@@ -1690,10 +1715,10 @@ function SalesPage({ answers }: { answers: QuizAnswers }) {
             target="_blank"
             rel="noopener noreferrer"
             whileTap={{ scale: 0.96 }}
-            className="flex-1 py-3.5 rounded-2xl bg-gradient-cta text-white font-black text-sm text-center relative overflow-hidden animate-pulse-glow"
-            style={{ boxShadow: "0 8px 28px -6px rgba(34, 197, 94, 0.5)" }}
+            className="flex-1 py-4 rounded-2xl bg-gradient-cta text-white font-black text-[15px] text-center relative overflow-hidden animate-cta-sales-super-pulse"
+            style={{ boxShadow: "0 8px 32px -6px rgba(34, 197, 94, 0.55)" }}
           >
-            <span className="relative z-10">QUERO MINHA GELATINA AGORA!</span>
+            <span className="relative z-10">👉 VER A RECEITA AGORA</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
           </motion.a>
         </div>

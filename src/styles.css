@@ -155,6 +155,69 @@
   --animate-heart-float: heart-float 3s ease-in-out infinite;
   --animate-heart-pulse: heart-pulse 2s ease-in-out infinite;
   --animate-hero-entrance: hero-entrance 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  /* CTA arrow bounce — points DOWN to grab attention */
+  @keyframes arrow-bounce-down {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.7; }
+  }
+
+  /* CTA super-pulse — more dramatic scale + glow for hero */
+  @keyframes cta-super-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 30px oklch(0.7 0.3 350 / 0.6),
+        0 0 60px oklch(0.65 0.28 350 / 0.3),
+        0 0 100px oklch(0.55 0.3 340 / 0.15),
+        0 12px 40px -4px oklch(0.55 0.3 340 / 0.4);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow:
+        0 0 50px oklch(0.7 0.3 350 / 0.8),
+        0 0 90px oklch(0.65 0.28 350 / 0.5),
+        0 0 130px oklch(0.55 0.3 340 / 0.22),
+        0 16px 56px -4px oklch(0.55 0.3 340 / 0.55);
+      transform: scale(1.045);
+    }
+  }
+
+  /* CTA attention ring — expanding ring that repeats */
+  @keyframes cta-attention-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+      border-color: oklch(0.7 0.3 350 / 0.5);
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+      border-color: oklch(0.7 0.3 350 / 0);
+    }
+  }
+
+  /* Sales CTA super-pulse — green version */
+  @keyframes cta-sales-super-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 30px rgba(34, 197, 94, 0.5),
+        0 0 60px rgba(34, 197, 94, 0.25),
+        0 12px 40px -4px rgba(34, 197, 94, 0.35);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow:
+        0 0 50px rgba(34, 197, 94, 0.75),
+        0 0 90px rgba(34, 197, 94, 0.4),
+        0 16px 56px -4px rgba(34, 197, 94, 0.5);
+      transform: scale(1.04);
+    }
+  }
+
+  --animate-arrow-bounce-down: arrow-bounce-down 1.2s ease-in-out infinite;
+  --animate-cta-super-pulse: cta-super-pulse 2.2s ease-in-out infinite;
+  --animate-cta-attention-ring: cta-attention-ring 2s ease-out infinite;
+  --animate-cta-sales-super-pulse: cta-sales-super-pulse 2.2s ease-in-out infinite;
 }
 
 :root {

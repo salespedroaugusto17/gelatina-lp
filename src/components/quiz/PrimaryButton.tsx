@@ -7,11 +7,20 @@ interface Props {
   disabled?: boolean;
   variant?: "pink" | "green";
   className?: string;
+  superCta?: boolean;
 }
 
-export function PrimaryButton({ children, onClick, disabled, variant = "pink", className = "" }: Props) {
+export function PrimaryButton({ children, onClick, disabled, variant = "pink", className = "", superCta = false }: Props) {
   const bg = variant === "green" ? "bg-gradient-cta" : "bg-gradient-primary";
   const isActive = !disabled;
+
+  // superCta = bigger button (~15% increase), stronger pulse
+  const sizeClasses = superCta
+    ? "py-[1.35rem] px-7 text-[1.25rem]"
+    : "py-[1.15rem] px-6 text-[1.1rem]";
+  const pulseClass = isActive
+    ? superCta ? "animate-cta-super-pulse" : "animate-pulse-glow"
+    : "";
 
   return (
     <motion.button
@@ -28,11 +37,11 @@ export function PrimaryButton({ children, onClick, disabled, variant = "pink", c
       onClick={onClick}
       disabled={disabled}
       className={`
-        relative w-full py-[1.15rem] px-6 rounded-2xl ${bg} text-white
-        font-extrabold text-[1.1rem] tracking-tight leading-snug
+        relative w-full ${sizeClasses} rounded-2xl ${bg} text-white
+        font-extrabold tracking-tight leading-snug
         disabled:opacity-40 disabled:cursor-not-allowed
         overflow-hidden
-        ${isActive ? "animate-pulse-glow" : ""}
+        ${pulseClass}
         ${className}
       `}
       style={{
@@ -43,6 +52,14 @@ export function PrimaryButton({ children, onClick, disabled, variant = "pink", c
       {/* Expanding ring pulse behind button */}
       {isActive && (
         <span className="absolute -inset-1 rounded-3xl border-2 border-pink-400/40 animate-ring-pulse pointer-events-none" />
+      )}
+
+      {/* Second attention ring — superCta only, staggered delay */}
+      {isActive && superCta && (
+        <span
+          className="absolute -inset-2 rounded-3xl border-2 pointer-events-none animate-cta-attention-ring"
+          style={{ animationDelay: "1s" }}
+        />
       )}
 
       {/* Shimmer sweep — brighter diagonal shine */}
